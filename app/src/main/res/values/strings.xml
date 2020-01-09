@@ -1,0 +1,17 @@
+<resources>
+    //Login Page Strings
+    <string name="app_name">Green Urth</string>
+    <string name="email">Email Address</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register">Register</string>
+    <string name="forgot_password">Forgot password?</string>
+
+    //Registration strings
+    <string name="register_password">Enter Password:</string>
+    <string name="register_email">Enter Email Address:</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset_password_via_mail">Enter registered email address to reset password</string>
+
+</resources>
