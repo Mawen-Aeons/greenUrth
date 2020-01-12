@@ -14,4 +14,12 @@
     <string name="cancel">Cancel</string>
     <string name="reset_password_via_mail">Enter registered email address to reset password</string>
 
+    //Profile Strings
+    <string name="organisationName">Organisation</string>
+    <string name="address">Address</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="orgContactNo">Contact No</string>
+    <string name="Save">Save</string>
+    <string name="Edit">Edit</string>
+
 </resources>

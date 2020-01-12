@@ -7,20 +7,28 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_registration.*
 
 class RegistrationActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
 
+    //access database table
+    private var userDatabase: DatabaseReference? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
         mAuth = FirebaseAuth.getInstance()
+        //INITIALISE FIREBASEDATABASE
+        userDatabase = FirebaseDatabase.getInstance().reference
+
 
         buttonSubmit.setOnClickListener {
-
+            //addNewUser()
             registration()
         }
 
@@ -72,8 +80,8 @@ class RegistrationActivity : AppCompatActivity() {
                             }
                         }
 
-
-                } else {
+                }
+                else {
                     // If sign in fails, display a message to the user.
                     Toast.makeText(baseContext, "Error, failed to create an account!", Toast.LENGTH_SHORT).show()
 
@@ -81,4 +89,29 @@ class RegistrationActivity : AppCompatActivity() {
 
             }
     }
+
+//    private fun addNewUser(){
+//        //val locUrl:Uri? = storageReference.child("locImages/$uploadFileName").getDownloadUrl().getResult()
+//        val username:String? = ""
+//        val userAddress: String? = ""
+//        val userEmail: String = editTextRegisterEmail.text.toString()
+//        val userContactNo: String?= ""
+//        val userProfilePicture: String = "https://ih0.redbubble.net/image.524527453.3004/flat,1000x1000,075,f.u1.jpg"
+//        val user = User(username
+//            , userEmail
+//            , userContactNo
+//            , userAddress
+//            ,userProfilePicture)
+//
+//        val userValues = user.toMap()
+//        val childUpdates = HashMap<String, Any>()
+//
+//        //ADD NEW ENTITY
+//        val key = userDatabase!!.child("user").push().key
+//
+//        //ADD THE INTO THE NEWLY CREATED ENTITY
+//        childUpdates.put("/user/$key", userValues)
+//
+//        userDatabase!!.updateChildren(childUpdates)
+//    }
 }

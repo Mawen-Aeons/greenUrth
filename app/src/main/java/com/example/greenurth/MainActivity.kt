@@ -97,7 +97,14 @@ class MainActivity : AppCompatActivity() {
         if (currentUser != null) {
             if(currentUser.isEmailVerified){
 
-                //ADD next page code
+                var i = Intent(this, ProfileActivity::class.java)
+                i.putExtra("currentUser",currentUser)
+                startActivity(i)
+                finish()
+            }
+            else{
+                Toast.makeText(baseContext, "Please verify your email", Toast.LENGTH_SHORT).show()
+
             }
         }
     }
@@ -136,7 +143,7 @@ class MainActivity : AppCompatActivity() {
                         updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(baseContext, "Please verify your email", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(baseContext, "Wrong Password Entered", Toast.LENGTH_SHORT).show()
                         updateUI(null)
                     }
                 }
