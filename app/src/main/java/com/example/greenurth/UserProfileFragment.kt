@@ -3,13 +3,17 @@ package com.example.greenurth
 import android.Manifest
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
@@ -20,9 +24,23 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_profile.*
 import java.util.*
 
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
-
-class ProfileActivity : AppCompatActivity() {
+/**
+ * A simple [Fragment] subclass.
+ * Activities that contain this fragment must implement the
+ * [UserProfileFragment.OnFragmentInteractionListener] interface
+ * to handle interaction events.
+ * Use the [UserProfileFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
+class UserProfileFragment : Fragment() {
+    // TODO: Rename and change types of parameters
+    private var param1: String? = null
+    private var param2: String? = null
 
     private var filePath: Uri? = null
     private var uploadFileName: String? = null
@@ -39,33 +57,47 @@ class ProfileActivity : AppCompatActivity() {
     //get current user
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        arguments?.let {
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
+//        }
+//    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
-        //val currentUser =intent.getStringExtra("currentUser")
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         //INITIALISE FIREBASEDATABASE
         userDatabase = FirebaseDatabase.getInstance().reference
 
         userReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://greenurth-1dee5.firebaseio.com/user")
 
-       // Display  current user data via their login email address
+        // Display  current user data via their login email address
         val userReference = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
-                    val username :String= dataSnapshot.child("user").child(currentUser!!.uid).child("userName").value.toString()
-                    var email = currentUser!!.email
-                    var contactNo = dataSnapshot.child("user").child(currentUser!!.uid).child("userContactNo").value.toString()
-                    var address = dataSnapshot.child("user").child(currentUser!!.uid).child("userAddress").value.toString()
-                    var profilePicture = dataSnapshot.child("user").child(currentUser!!.uid).child("userProfilePicture").value.toString()
+                val username :String= dataSnapshot.child("user").child(currentUser!!.uid).child("userName").value.toString()
+                var email = currentUser!!.email
+                var contactNo = dataSnapshot.child("user").child(currentUser!!.uid).child("userContactNo").value.toString()
+                var address = dataSnapshot.child("user").child(currentUser!!.uid).child("userAddress").value.toString()
+                var profilePicture = dataSnapshot.child("user").child(currentUser!!.uid).child("userProfilePicture").value.toString()
 
-                    editTextProfileUsername.setText(username)
-                    editTextProfileEmail.setText(email)
-                    editTextOrganisationContactNo.setText(contactNo)
-                    editTextOrganisationAddress.setText(address)
-                    Picasso.get().load(profilePicture).into(imageButtonUploadProfile)
-                }
+                editTextProfileUsername.setText(username)
+                editTextProfileEmail.setText(email)
+                editTextOrganisationContactNo.setText(contactNo)
+                editTextOrganisationAddress.setText(address)
+                Picasso.get().load(profilePicture).into(imageButtonUploadProfile)
+            }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 // Getting Post failed, log a message
@@ -87,7 +119,7 @@ class ProfileActivity : AppCompatActivity() {
         imageButtonUploadProfile.setOnClickListener {
             //check runtime permission
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if(this?.let { it1 ->
+                if(activity?.let { it1 ->
                         ContextCompat.checkSelfPermission(
                             it1,
                             Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -95,7 +127,7 @@ class ProfileActivity : AppCompatActivity() {
                     //permission denied
                     val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
                     //always request for permission
-                    requestPermissions(permissions, PERMISSION_CODE)
+                    requestPermissions(permissions, ProfileActivity.PERMISSION_CODE)
                 }else{
                     //permission granted
                     pickImageFromGallery()
@@ -114,8 +146,6 @@ class ProfileActivity : AppCompatActivity() {
             editTextOrganisationContactNo.isEnabled = false
         }
     }
-
-
 
     private fun updateUserDetails(){
         //val locUrl:Uri? = storageReference!!.child("profImages/$uploadFileName").getDownloadUrl().getResult()
@@ -151,16 +181,16 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun uploadFile(){
         if(filePath != null){
-            Toast.makeText(this,"Uploading", Toast.LENGTH_SHORT).show()
+            Toast.makeText(activity,"Uploading", Toast.LENGTH_SHORT).show()
         }else{
             uploadFileName = UUID.randomUUID().toString()
             val imageRef = storageReference!!.child("profImages/" + uploadFileName)
             imageRef.putFile(filePath!!)
                 .addOnSuccessListener {
-                    Toast.makeText(this,"File success to uploaded", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,"File success to uploaded", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener{
-                    Toast.makeText(this,"File failed to upload", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,"File failed to upload", Toast.LENGTH_SHORT).show()
                 }
         }
     }
@@ -175,8 +205,8 @@ class ProfileActivity : AppCompatActivity() {
 
     companion object {
         //IMAGE PICK CODE
-        private const val IMAGE_PICK_CODE = 1000
-        const val PERMISSION_CODE = 1001
+         const val IMAGE_PICK_CODE = 1000
+         const val PERMISSION_CODE = 1001
     }
 
     override fun onRequestPermissionsResult(
@@ -191,7 +221,7 @@ class ProfileActivity : AppCompatActivity() {
                     pickImageFromGallery()
                 }else{
                     //permission from popup denied
-                    Toast.makeText(this,"Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,"Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
         }

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".UserProfileFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="279dp"
+        android:background="@drawable/field">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="255dp">
+
+            <TextView
+                android:id="@+id/textViewProfilePicture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_picture"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/imageButtonUploadProfile"
+                app:layout_constraintStart_toStartOf="@+id/imageButtonUploadProfile"
+                app:layout_constraintTop_toBottomOf="@+id/imageButtonUploadProfile" />
+
+            <ImageButton
+                android:id="@+id/imageButtonUploadProfile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:clickable="false"
+                android:src="@drawable/ic_account_circle_black_150dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="443dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="437dp"
+            android:background="@android:color/background_light">
+
+            <TextView
+                android:id="@+id/textViewOrganisationName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/organisationName"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.071"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewProfileEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintStart_toStartOf="@+id/editTextProfileUsername"
+                app:layout_constraintTop_toBottomOf="@+id/editTextProfileUsername" />
+
+            <EditText
+                android:id="@+id/editTextProfileUsername"
+                android:layout_width="347dp"
+                android:layout_height="48dp"
+                android:background="@drawable/edit_text_border"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="@+id/textViewOrganisationName"
+                app:layout_constraintTop_toBottomOf="@+id/textViewOrganisationName" />
+
+            <EditText
+                android:id="@+id/editTextProfileEmail"
+                android:layout_width="347dp"
+                android:layout_height="48dp"
+                android:background="@drawable/edit_text_border"
+                android:editable="false"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textEmailAddress"
+                app:layout_constraintStart_toStartOf="@+id/textViewProfileEmail"
+                app:layout_constraintTop_toBottomOf="@+id/textViewProfileEmail" />
+
+            <TextView
+                android:id="@+id/textViewAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintStart_toStartOf="@+id/editTextOrganisationContactNo"
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrganisationContactNo" />
+
+            <EditText
+                android:id="@+id/editTextOrganisationAddress"
+                android:layout_width="347dp"
+                android:layout_height="120dp"
+                android:background="@drawable/edit_text_border"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textMultiLine"
+                app:layout_constraintStart_toStartOf="@+id/textViewAddress"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAddress" />
+
+            <Button
+                android:id="@+id/buttonEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="@string/Edit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrganisationAddress"
+                android:layout_marginLeft="24dp" />
+
+            <Button
+                android:id="@+id/buttonSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="@string/Save"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextOrganisationAddress"
+                android:layout_marginRight="40dp" />
+
+            <TextView
+                android:id="@+id/textViewOrganisationContactNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/orgContactNo"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:layout_constraintStart_toStartOf="@+id/editTextProfileEmail"
+                app:layout_constraintTop_toBottomOf="@+id/editTextProfileEmail" />
+
+            <EditText
+                android:id="@+id/editTextOrganisationContactNo"
+                android:layout_width="347dp"
+                android:layout_height="48dp"
+                android:background="@drawable/edit_text_border"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="phone"
+                app:layout_constraintStart_toStartOf="@+id/textViewOrganisationContactNo"
+                app:layout_constraintTop_toBottomOf="@+id/textViewOrganisationContactNo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>
